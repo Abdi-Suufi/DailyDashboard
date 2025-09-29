@@ -5,6 +5,6 @@ module com.example.dailydashboard {
     requires java.net.http;
     requires com.google.gson;
 
-    opens com.example.dailydashboard to javafx.fxml;
+    opens com.example.dailydashboard to javafx.fxml, com.google.gson;
     exports com.example.dailydashboard;
 }
