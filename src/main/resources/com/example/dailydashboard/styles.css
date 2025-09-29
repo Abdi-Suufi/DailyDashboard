@@ -1,12 +1,12 @@
 /* General Styling */
 .root {
     -fx-font-family: 'Inter', 'Segoe UI', sans-serif;
-    -fx-background-color: #F4F7FC;
+    -fx-background-color: linear-gradient(to bottom right, #64B5F6, #BBDEFB);
 }
 
 /* Sidebar Styling */
 .sidebar {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0.5, 0, 5);
 }
 
@@ -20,15 +20,18 @@
 .sidebar-button {
     -fx-pref-width: 200px;
     -fx-font-size: 16px;
-    -fx-text-fill: #5D6D7E;
+    -fx-text-fill: #2C3E50;
     -fx-background-color: transparent;
+    -fx-border-color: #2980B9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
     -fx-alignment: center-left;
     -fx-padding: 15px 30px;
 }
 
 .sidebar-button:hover {
-    -fx-background-color: #EAEFF7;
-    -fx-text-fill: #2980B9;
+    -fx-background-color: #2980B9;
+    -fx-text-fill: white;
 }
 
 /* Main Content Area */
@@ -44,12 +47,12 @@
 
 #dateLabel {
     -fx-font-size: 16px;
-    -fx-text-fill: #5D6D7E;
+    -fx-text-fill: #2C3E50;
 }
 
 /* Card Styling */
 .card {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
     -fx-background-radius: 15;
     -fx-padding: 20px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0.5, 0, 5);
@@ -94,6 +97,11 @@
 }
 
 .jfx-text-area {
+    -fx-background-color: #F4F7FC;
+    -fx-font-size: 14px;
+}
+
+.jfx-text-field {
     -fx-background-color: #F4F7FC;
     -fx-font-size: 14px;
 }

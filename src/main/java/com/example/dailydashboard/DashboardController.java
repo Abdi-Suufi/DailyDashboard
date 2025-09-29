@@ -1,13 +1,16 @@
 package com.example.dailydashboard;
 
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.CheckBoxListCell;
 
 import java.net.URL;
@@ -35,14 +38,20 @@ public class DashboardController implements Initializable {
     @FXML
     private JFXListView<String> todoListView;
 
+    @FXML
+    private JFXTextField taskTextField;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set Welcome and Date
         welcomeLabel.setText("Good Morning, User!");
         dateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
 
-        // Set mock data
-        weatherLabel.setText("Bristol, UK | 18°C, Sunny");
+        // Set weather data
+        String weatherData = WeatherService.getWeatherData();
+        weatherLabel.setText(WeatherService.parseWeatherData(weatherData));
+
         tasksLabel.setText("5 / 8");
 
         // Populate To-Do List
@@ -50,6 +59,9 @@ public class DashboardController implements Initializable {
 
         // Populate Productivity Chart
         populateChart();
+
+        // Add context menu for deleting tasks
+        addContextMenuToTodo();
     }
 
     private void populateTodo() {
@@ -81,4 +93,25 @@ public class DashboardController implements Initializable {
 
         productivityChart.getData().add(series);
     }
+    @FXML
+    private void addTask() {
+        String task = taskTextField.getText();
+        if (task != null && !task.isEmpty()) {
+            todoListView.getItems().add(task);
+            taskTextField.clear();
+        }
+    }
+    private void addContextMenuToTodo() {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem deleteItem = new MenuItem("Delete");
+        deleteItem.setOnAction(event -> {
+            String selectedItem = todoListView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                todoListView.getItems().remove(selectedItem);
+            }
+        });
+        contextMenu.getItems().add(deleteItem);
+        todoListView.setContextMenu(contextMenu);
+    }
+
 }

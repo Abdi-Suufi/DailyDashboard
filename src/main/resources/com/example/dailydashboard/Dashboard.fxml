@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -15,7 +16,6 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.DashboardController">
     <HBox prefHeight="800.0" prefWidth="1200.0">
-        <!-- Side Navigation Panel -->
         <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="250.0" spacing="20.0" styleClass="sidebar">
             <padding>
                 <Insets top="20.0" />
@@ -31,7 +31,6 @@
             <JFXButton styleClass="sidebar-button" text="Settings" />
         </VBox>
 
-        <!-- Main Content Area -->
         <VBox prefHeight="800.0" prefWidth="950.0" spacing="20.0">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -44,7 +43,6 @@
             <Label fx:id="dateLabel" text="September 27, 2025" />
 
             <HBox spacing="20.0">
-                <!-- Weather and Productivity Chart -->
                 <VBox HBox.hgrow="ALWAYS">
                     <HBox spacing="20.0">
                         <VBox styleClass="card" HBox.hgrow="ALWAYS">
@@ -72,11 +70,14 @@
                     </VBox>
                 </VBox>
 
-                <!-- To-Do List and Notes -->
                 <VBox spacing="20.0">
                     <VBox styleClass="card">
                         <Label styleClass="card-title" text="To-Do List" />
-                        <JFXListView fx:id="todoListView" prefHeight="250.0" />
+                        <JFXListView fx:id="todoListView" prefHeight="200" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <JFXTextField fx:id="taskTextField" promptText="New task..." HBox.hgrow="ALWAYS" />
+                            <JFXButton fx:id="addTaskButton" text="Add" onAction="#addTask" />
+                        </HBox>
                     </VBox>
                     <VBox styleClass="card" VBox.vgrow="ALWAYS">
                         <Label styleClass="card-title" text="Quick Notes" />

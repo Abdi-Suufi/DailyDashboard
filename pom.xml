@@ -25,7 +25,6 @@
       <artifactId>javafx-fxml</artifactId>
       <version>17.0.2</version>
     </dependency>
-    <!-- JFoenix Dependency -->
     <dependency>
       <groupId>com.jfoenix</groupId>
       <artifactId>jfoenix</artifactId>
@@ -42,6 +41,11 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
     </dependency>
   </dependencies>
 
@@ -62,7 +66,6 @@
         <version>0.0.8</version>
         <executions>
           <execution>
-            <!-- Default configuration for running with: mvn javafx:run -->
             <id>default-cli</id>
             <configuration>
               <mainClass>com.example.dailydashboard/com.example.dailydashboard.Main</mainClass>
@@ -72,12 +75,10 @@
               <noManPages>true</noManPages>
               <stripDebug>true</stripDebug>
               <noHeaderFiles>true</noHeaderFiles>
-              <!-- ADD THIS OPTIONS BLOCK -->
               <options>
-                <option>--add-opens</option>
-                <option>java.base/java.lang.reflect=com.jfoenix</option>
+                <option>--add-opens=java.base/java.lang.reflect=com.jfoenix</option>
+                <option>--add-opens=java.base/java.lang=com.jfoenix</option>
               </options>
-              <!-- END OF ADDED BLOCK -->
             </configuration>
           </execution>
         </executions>
@@ -85,4 +86,3 @@
     </plugins>
   </build>
 </project>
-
