@@ -2,6 +2,7 @@ package com.example.dailydashboard;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException; // Import this
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,12 +10,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate; // Import LocalDate
+import java.time.LocalDate;
 
 public class DataService {
 
     private static final Path DATA_PATH = Paths.get(System.getProperty("user.home"), ".dailydashboard", "data.json");
-    // Updated Gson instance to register our new adapter
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
@@ -37,8 +37,9 @@ public class DataService {
         }
         try (FileReader reader = new FileReader(DATA_PATH.toFile())) {
             return GSON.fromJson(reader, AppData.class);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | JsonSyntaxException e) { // Catch the exception here
+            // If the file is corrupt or unreadable, log the error and start fresh.
+            System.err.println("Could not load data file. It might be corrupted. Starting fresh.");
             return null;
         }
     }

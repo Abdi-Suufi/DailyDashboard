@@ -78,6 +78,8 @@
               <options>
                 <option>--add-opens=java.base/java.lang.reflect=com.jfoenix</option>
                 <option>--add-opens=java.base/java.lang=com.jfoenix</option>
+                <option>--add-opens=javafx.base/javafx.beans.property=com.google.gson</option>
+                <option>--add-opens=javafx.base/com.sun.javafx.binding=com.google.gson</option>
               </options>
             </configuration>
           </execution>
