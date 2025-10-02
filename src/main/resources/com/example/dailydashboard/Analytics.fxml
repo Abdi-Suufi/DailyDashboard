@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_LEFT" spacing="20.0" styleClass="main-content" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.AnalyticsController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <Label text="Analytics">
+        <font>
+            <Font name="System Bold" size="36.0" />
+        </font>
+    </Label>
+    <HBox spacing="20.0">
+        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <Label styleClass="card-title" text="Tasks Completed" />
+            <Label fx:id="tasksCompletedLabel" styleClass="card-content-large" text="0" />
+        </VBox>
+        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <Label styleClass="card-title" text="Completion Rate" />
+            <Label fx:id="completionRateLabel" styleClass="card-content-large" text="0%" />
+        </VBox>
+        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+            <Label styleClass="card-title" text="Most Productive Day" />
+            <Label fx:id="productiveDayLabel" styleClass="card-content-large" text="-" />
+        </VBox>
+    </HBox>
+    <VBox styleClass="card" VBox.vgrow="ALWAYS">
+        <Label styleClass="card-title" text="Weekly Productivity" />
+        <BarChart fx:id="weeklyChart" legendVisible="false">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" tickUnit="1.0" />
+            </yAxis>
+        </BarChart>
+    </VBox>
+</VBox>

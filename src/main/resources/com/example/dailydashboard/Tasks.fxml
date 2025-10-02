@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_LEFT" spacing="20.0" styleClass="main-content" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.TasksController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <Label text="Tasks">
+        <font>
+            <Font name="System Bold" size="36.0" />
+        </font>
+    </Label>
+    <VBox styleClass="card" VBox.vgrow="ALWAYS">
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label styleClass="card-title" text="To-Do List" />
+            <JFXButton onAction="#showAllTasks" text="All" />
+            <JFXButton onAction="#showPendingTasks" text="Pending" />
+            <JFXButton onAction="#showCompletedTasks" text="Completed" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <JFXButton onAction="#clearCompletedTasks" text="Clear Completed" style="-fx-text-fill: #E74C3C;" />
+        </HBox>
+        <JFXListView fx:id="todoListView" VBox.vgrow="ALWAYS" />
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10 0 0 0;">
+            <JFXTextField fx:id="taskTextField" promptText="New task..." HBox.hgrow="ALWAYS" />
+            <JFXButton fx:id="addTaskButton" text="Add" onAction="#addTask" />
+        </HBox>
+    </VBox>
+</VBox>

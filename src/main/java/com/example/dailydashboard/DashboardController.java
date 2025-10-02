@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
@@ -16,9 +17,11 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -29,6 +32,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class DashboardController implements Initializable {
 
@@ -41,7 +45,9 @@ public class DashboardController implements Initializable {
     @FXML private JFXTextField taskTextField;
     @FXML private JFXTextArea notesArea;
     @FXML private VBox mainContent;
+    @FXML private StackPane contentArea;
 
+    private Node homeView;
 
     private ObservableList<TodoItem> todoItems;
     private Map<String, Integer> productivityData = new HashMap<>();
@@ -49,8 +55,12 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        homeView = mainContent;
+
         // Set Welcome and Date
-        welcomeLabel.setText("Good Morning, User!");
+        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+        String userName = prefs.get("userName", "User");
+        welcomeLabel.setText("Good Morning, " + userName + "!");
         dateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
 
         // Set weather data
@@ -101,7 +111,6 @@ public class DashboardController implements Initializable {
         }));
     }
 
-
     private void updateTasksLabel() {
         long completedCount = todoItems.stream().filter(TodoItem::isCompleted).count();
         tasksLabel.setText(String.format("%d / %d", completedCount, todoItems.size()));
@@ -134,10 +143,6 @@ public class DashboardController implements Initializable {
             updateTasksLabel();
             saveData();
 
-            // Add a little animation to the new item
-            // This is a bit of a hack, but it works for now
-            // A better solution would be to create a custom ListView cell
-            // that has an animation built-in
             final int index = todoListView.getItems().size() - 1;
             todoListView.scrollTo(index);
             Node node = todoListView.lookup(".list-cell:indexed(" + index + ")");
@@ -180,7 +185,8 @@ public class DashboardController implements Initializable {
             notesArea.setText("");
             productivityData = new HashMap<>();
         } else {
-            todoItems = FXCollections.observableArrayList(appData.getTodoItems());
+            todoItems = FXCollections.observableArrayList(appData.getTodoItems() != null ? appData.getTodoItems() : new ArrayList<>());
+            todoItems.forEach(TodoItem::completedProperty); // Initialize properties after loading
             notesArea.setText(appData.getNotes() != null ? appData.getNotes() : "");
             productivityData = appData.getProductivityData() != null ? appData.getProductivityData() : new HashMap<>();
         }
@@ -188,8 +194,52 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void handleNavClick(ActionEvent event) {
-        // Here you would add logic to switch between different views
-        // For now, it will just print the text of the button
-        System.out.println(((com.jfoenix.controls.JFXButton) event.getSource()).getText());
+        Node source = (Node) event.getSource();
+        String id = source.getId();
+
+        switch (id) {
+            case "homeButton":
+                updateTasksLabel(); // Update dashboard stats when returning home
+                updateProductivityChart();
+                setView(homeView);
+                break;
+            case "analyticsButton":
+                loadView("Analytics.fxml");
+                break;
+            case "tasksButton":
+                loadView("Tasks.fxml");
+                break;
+            case "settingsButton":
+                loadView("Settings.fxml");
+                break;
+        }
+    }
+
+    private void loadView(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Node view = loader.load();
+            Object controller = loader.getController();
+
+            if (controller instanceof AnalyticsController) {
+                ((AnalyticsController) controller).initData(productivityData, todoItems);
+            } else if (controller instanceof TasksController) {
+                ((TasksController) controller).initData(todoItems);
+            } else if (controller instanceof SettingsController) {
+                ((SettingsController) controller).initData(welcomeLabel);
+            }
+
+            setView(view);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setView(Node view) {
+        contentArea.getChildren().setAll(view);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), view);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
     }
 }
