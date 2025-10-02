@@ -21,20 +21,22 @@
                 <Insets top="20.0" />
             </padding>
             <Label styleClass="sidebar-title" text="Dashboard">
+
                 <font>
                     <Font name="System Bold" size="24.0" />
                 </font>
             </Label>
-            <JFXButton buttonType="RAISED" styleClass="sidebar-button" text="Home" />
-            <JFXButton styleClass="sidebar-button" text="Analytics" />
-            <JFXButton styleClass="sidebar-button" text="Tasks" />
-            <JFXButton styleClass="sidebar-button" text="Settings" />
+            <JFXButton fx:id="homeButton" buttonType="RAISED" onAction="#handleNavClick" styleClass="sidebar-button" text="Home" />
+            <JFXButton fx:id="analyticsButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Analytics" />
+            <JFXButton fx:id="tasksButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Tasks" />
+            <JFXButton fx:id="settingsButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Settings" />
         </VBox>
 
-        <VBox prefHeight="800.0" prefWidth="950.0" spacing="20.0">
+        <VBox fx:id="mainContent" prefHeight="800.0" prefWidth="950.0" spacing="20.0">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
+
             <Label fx:id="welcomeLabel" text="Good Morning, User!">
                 <font>
                     <Font name="System Bold" size="36.0" />
@@ -42,47 +44,58 @@
             </Label>
             <Label fx:id="dateLabel" text="September 27, 2025" />
 
+
             <HBox spacing="20.0">
                 <VBox HBox.hgrow="ALWAYS">
                     <HBox spacing="20.0">
                         <VBox styleClass="card" HBox.hgrow="ALWAYS">
                             <Label styleClass="card-title" text="Weather" />
+
                             <Label fx:id="weatherLabel" text="Bristol, UK | 18°C, Sunny" />
                         </VBox>
                         <VBox styleClass="card" HBox.hgrow="ALWAYS">
                             <Label styleClass="card-title" text="Tasks Completed" />
+
                             <Label fx:id="tasksLabel" styleClass="card-content-large" text="5 / 8" />
                         </VBox>
                     </HBox>
                     <VBox styleClass="card" VBox.vgrow="ALWAYS">
+
                         <padding>
                             <Insets top="10.0" />
                         </padding>
                         <Label styleClass="card-title" text="Productivity Overview" />
+
                         <AreaChart fx:id="productivityChart" legendVisible="false">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" />
+
                             </xAxis>
                             <yAxis>
-                                <NumberAxis side="LEFT" />
+                                <NumberAxis side="LEFT" tickUnit="1" />
                             </yAxis>
+
                         </AreaChart>
                     </VBox>
                 </VBox>
 
                 <VBox spacing="20.0">
                     <VBox styleClass="card">
+
                         <Label styleClass="card-title" text="To-Do List" />
                         <JFXListView fx:id="todoListView" prefHeight="200" />
-                        <HBox spacing="10" alignment="CENTER_LEFT">
+                        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10 0 0 0;">
+
                             <JFXTextField fx:id="taskTextField" promptText="New task..." HBox.hgrow="ALWAYS" />
                             <JFXButton fx:id="addTaskButton" text="Add" onAction="#addTask" />
                         </HBox>
                     </VBox>
+
                     <VBox styleClass="card" VBox.vgrow="ALWAYS">
                         <Label styleClass="card-title" text="Quick Notes" />
                         <JFXTextArea fx:id="notesArea" prefHeight="200.0" promptText="Jot down some notes..." />
                     </VBox>
+
                 </VBox>
             </HBox>
         </VBox>

@@ -3,16 +3,21 @@ package com.example.dailydashboard;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -35,6 +40,8 @@ public class DashboardController implements Initializable {
     @FXML private JFXListView<TodoItem> todoListView;
     @FXML private JFXTextField taskTextField;
     @FXML private JFXTextArea notesArea;
+    @FXML private VBox mainContent;
+
 
     private ObservableList<TodoItem> todoItems;
     private Map<String, Integer> productivityData = new HashMap<>();
@@ -62,6 +69,12 @@ public class DashboardController implements Initializable {
                 saveData();
             }
         });
+
+        // Add a fade-in animation to the main content
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), mainContent);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
     }
 
     private void setupTodoListView() {
@@ -115,10 +128,25 @@ public class DashboardController implements Initializable {
     private void addTask() {
         String taskText = taskTextField.getText();
         if (taskText != null && !taskText.trim().isEmpty()) {
-            todoItems.add(new TodoItem(taskText, false));
+            TodoItem newItem = new TodoItem(taskText, false);
+            todoItems.add(newItem);
             taskTextField.clear();
             updateTasksLabel();
             saveData();
+
+            // Add a little animation to the new item
+            // This is a bit of a hack, but it works for now
+            // A better solution would be to create a custom ListView cell
+            // that has an animation built-in
+            final int index = todoListView.getItems().size() - 1;
+            todoListView.scrollTo(index);
+            Node node = todoListView.lookup(".list-cell:indexed(" + index + ")");
+            if (node != null) {
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), node);
+                fadeIn.setFromValue(0);
+                fadeIn.setToValue(1);
+                fadeIn.play();
+            }
         }
     }
 
@@ -156,5 +184,12 @@ public class DashboardController implements Initializable {
             notesArea.setText(appData.getNotes() != null ? appData.getNotes() : "");
             productivityData = appData.getProductivityData() != null ? appData.getProductivityData() : new HashMap<>();
         }
+    }
+
+    @FXML
+    private void handleNavClick(ActionEvent event) {
+        // Here you would add logic to switch between different views
+        // For now, it will just print the text of the button
+        System.out.println(((com.jfoenix.controls.JFXButton) event.getSource()).getText());
     }
 }
