@@ -80,6 +80,7 @@
                 <option>--add-opens=java.base/java.lang=com.jfoenix</option>
                 <option>--add-opens=javafx.base/javafx.beans.property=com.google.gson</option>
                 <option>--add-opens=javafx.base/com.sun.javafx.binding=com.google.gson</option>
+                <option>--add-opens=javafx.graphics/com.sun.javafx.scene=com.jfoenix</option>
               </options>
             </configuration>
           </execution>

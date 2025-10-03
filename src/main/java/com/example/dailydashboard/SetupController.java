@@ -1,22 +1,52 @@
 package com.example.dailydashboard;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class SetupController {
+public class SetupController implements Initializable {
 
-    @FXML
-    private JFXTextField nameField;
+    @FXML private JFXTextField nameField;
+    @FXML private JFXSpinner loadingSpinner;
+    @FXML private VBox contentVBox;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Show spinner initially
+        loadingSpinner.setVisible(true);
+
+        // Hide content initially
+        contentVBox.setOpacity(0.0);
+
+        // Simulate a loading process
+        PauseTransition pause = new PauseTransition(Duration.seconds(2)); // 2-second loading animation
+        pause.setOnFinished(event -> {
+            loadingSpinner.setVisible(false);
+            FadeTransition fadeInContent = new FadeTransition(Duration.seconds(0.8), contentVBox);
+            fadeInContent.setFromValue(0.0);
+            fadeInContent.setToValue(1.0);
+            fadeInContent.play();
+        });
+        pause.play();
+    }
 
     @FXML
     void getStarted(ActionEvent event) {

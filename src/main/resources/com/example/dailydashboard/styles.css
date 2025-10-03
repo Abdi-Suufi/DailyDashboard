@@ -4,6 +4,51 @@
     -fx-background-color: linear-gradient(to bottom right, #4facfe, #00f2fe);
 }
 
+/* Setup Screen Styling */
+.setup-root {
+    -fx-background-color: rgba(255, 255, 255, 0.7); /* Transparent white background */
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0.5, 0, 10);
+}
+
+.setup-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+.setup-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #34495E;
+    -fx-alignment: center;
+}
+
+.setup-textfield {
+    -jfx-focus-color: #2980B9;
+    -jfx-unfocus-color: #BDC3C7;
+    -fx-prompt-text-fill: #7F8C8D;
+    -fx-font-size: 14px;
+}
+
+.setup-button {
+    -fx-pref-width: 150px;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-background-color: #2980B9;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+.setup-button:hover {
+    -fx-background-color: #3498DB;
+}
+
+/* JFXSpinner Styling */
+.jfx-spinner {
+    -fx-progress-color: #2980B9; /* A blue color for the spinner */
+}
+
 /* Sidebar Styling */
 .sidebar {
     -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */

@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" styleClass="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.SetupController">
-    <padding>
-        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-    </padding>
+<StackPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="setup-root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.SetupController">
     <children>
-        <Label text="Welcome to Daily Dashboard!" textFill="#2c3e50">
-            <font>
-                <Font name="System Bold" size="28.0" />
-            </font>
-        </Label>
-        <Label text="Let's get you set up. Please enter your name to continue." textFill="#2c3e50" />
-        <JFXTextField fx:id="nameField" promptText="Your Name" />
-        <JFXButton onAction="#getStarted" styleClass="sidebar-button" text="Get Started" />
+        <VBox fx:id="contentVBox" alignment="CENTER" opacity="0.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            <children>
+                <Label styleClass="setup-title" text="Welcome to Daily Dashboard!" />
+                <Label styleClass="setup-subtitle" text="Let's get you set up. Please enter your name to continue." />
+                <JFXTextField fx:id="nameField" alignment="CENTER" prefWidth="250.0" promptText="Your Name" styleClass="setup-textfield" />
+                <JFXButton onAction="#getStarted" styleClass="setup-button" text="Get Started" />
+            </children>
+        </VBox>
+        <JFXSpinner fx:id="loadingSpinner" prefHeight="50.0" prefWidth="50.0" visible="false" />
     </children>
-</VBox>
+</StackPane>
