@@ -15,7 +15,7 @@ public class SettingsController {
 
     public void initData(Label welcomeLabel) {
         this.welcomeLabel = welcomeLabel;
-        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+        Preferences prefs = Preferences.userNodeForPackage(Main.class);
         userNameField.setText(prefs.get("userName", "User"));
     }
 
@@ -23,7 +23,7 @@ public class SettingsController {
     private void saveUserName() {
         String userName = userNameField.getText();
         if (userName != null && !userName.trim().isEmpty()) {
-            Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+            Preferences prefs = Preferences.userNodeForPackage(Main.class);
             prefs.put("userName", userName);
             welcomeLabel.setText("Good Morning, " + userName + "!");
             showAlert(Alert.AlertType.INFORMATION, "Success", "User name updated successfully.");

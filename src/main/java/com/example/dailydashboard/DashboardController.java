@@ -58,7 +58,7 @@ public class DashboardController implements Initializable {
         homeView = mainContent;
 
         // Set Welcome and Date
-        Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+        Preferences prefs = Preferences.userNodeForPackage(Main.class);
         String userName = prefs.get("userName", "User");
         welcomeLabel.setText("Good Morning, " + userName + "!");
         dateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
@@ -186,7 +186,8 @@ public class DashboardController implements Initializable {
             productivityData = new HashMap<>();
         } else {
             todoItems = FXCollections.observableArrayList(appData.getTodoItems() != null ? appData.getTodoItems() : new ArrayList<>());
-            todoItems.forEach(TodoItem::completedProperty); // Initialize properties after loading
+            todoItems.forEach(item -> item.textProperty()); // This initializes the transient properties after loading
+            todoItems.forEach(item -> item.completedProperty());
             notesArea.setText(appData.getNotes() != null ? appData.getNotes() : "");
             productivityData = appData.getProductivityData() != null ? appData.getProductivityData() : new HashMap<>();
         }
