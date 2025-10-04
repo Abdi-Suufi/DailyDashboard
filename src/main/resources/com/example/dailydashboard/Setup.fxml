@@ -18,7 +18,7 @@
             <children>
                 <Label styleClass="setup-title" text="Welcome to Daily Dashboard!" />
                 <Label styleClass="setup-subtitle" text="Let's get you set up. Please enter your name to continue." />
-                <JFXTextField fx:id="nameField" alignment="CENTER" prefWidth="250.0" promptText="Your Name" styleClass="setup-textfield" />
+                <JFXTextField fx:id="nameField" alignment="CENTER" prefWidth="250.0" styleClass="setup-textfield" />
                 <JFXButton onAction="#getStarted" styleClass="setup-button" text="Get Started" />
             </children>
         </VBox>
