@@ -8,94 +8,132 @@
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.Button?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.DashboardController">
-    <VBox>
-        <HBox alignment="CENTER_RIGHT" styleClass="title-bar">
-            <Label styleClass="title-label" text="Daily Dashboard" HBox.hgrow="ALWAYS" alignment="CENTER" />
-            <Button fx:id="minimizeButton" onAction="#minimizeWindow" styleClass="window-button" text="-"/>
-            <Button fx:id="maximizeButton" onAction="#maximizeWindow" styleClass="window-button" text="◻"/>
-            <Button fx:id="closeButton" onAction="#closeWindow" styleClass="window-button" text="X"/>
-        </HBox>
-        <HBox prefHeight="800.0" prefWidth="1200.0">
-            <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="250.0" spacing="20.0" styleClass="sidebar">
-                <padding>
-                    <Insets top="20.0" />
-                </padding>
-                <Label styleClass="sidebar-title" text="Dashboard">
-
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-                <JFXButton fx:id="homeButton" buttonType="RAISED" onAction="#handleNavClick" styleClass="sidebar-button" text="Home" />
-                <JFXButton fx:id="analyticsButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Analytics" />
-                <JFXButton fx:id="tasksButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Tasks" />
-                <JFXButton fx:id="settingsButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Settings" />
-            </VBox>
-
-            <StackPane fx:id="contentArea" prefHeight="800.0" prefWidth="950.0">
-                <VBox fx:id="mainContent" prefHeight="800.0" prefWidth="950.0" spacing="20.0">
+    <children>
+        <BorderPane layoutX="269.0" layoutY="254.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox alignment="CENTER_RIGHT" prefHeight="40.0" styleClass="title-bar" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="title-label" text="Daily Dashboard" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="minimizeButton" mnemonicParsing="false" onAction="#minimizeWindow" styleClass="window-button" text="-" />
+                        <Button fx:id="maximizeButton" mnemonicParsing="false" onAction="#maximizeWindow" styleClass="window-button" text="◻" />
+                        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeWindow" styleClass="window-button" text="X" />
+                    </children>
                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets left="10.0" right="10.0" />
                     </padding>
-                    <Label fx:id="welcomeLabel" text="Good Morning, User!">
-                        <font>
-                            <Font name="System Bold" size="36.0" />
-                        </font>
-                    </Label>
-                    <Label fx:id="dateLabel" text="September 27, 2025" />
-                    <HBox spacing="20.0">
-                        <VBox HBox.hgrow="ALWAYS">
-                            <HBox spacing="20.0">
-                                <VBox styleClass="card" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="card-title" text="Weather" />
-                                    <Label fx:id="weatherLabel" text="Bristol, UK | 18°C, Sunny" />
-                                </VBox>
-                                <VBox styleClass="card" HBox.hgrow="ALWAYS">
-                                    <Label styleClass="card-title" text="Tasks Completed" />
-                                    <Label fx:id="tasksLabel" styleClass="card-content-large" text="5 / 8" />
-                                </VBox>
-                            </HBox>
-                            <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                                <padding>
-                                    <Insets top="10.0" />
-                                </padding>
-                                <Label styleClass="card-title" text="Productivity Overview" />
-                                <AreaChart fx:id="productivityChart" legendVisible="false">
-                                    <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
-                                    </xAxis>
-                                    <yAxis>
-                                        <NumberAxis side="LEFT" tickUnit="1" />
-                                    </yAxis>
-                                </AreaChart>
-                            </VBox>
+                </HBox>
+            </top>
+            <center>
+                <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="760.0" prefWidth="250.0" spacing="20.0" styleClass="sidebar">
+                            <children>
+                                <Label styleClass="sidebar-title" text="Dashboard">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                                <JFXButton fx:id="homeButton" buttonType="RAISED" onAction="#handleNavClick" styleClass="sidebar-button" text="Home" />
+                                <JFXButton fx:id="analyticsButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Analytics" />
+                                <JFXButton fx:id="tasksButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Tasks" />
+                                <JFXButton fx:id="settingsButton" onAction="#handleNavClick" styleClass="sidebar-button" text="Settings" />
+                            </children>
+                            <padding>
+                                <Insets top="20.0" />
+                            </padding>
                         </VBox>
-                        <VBox spacing="20.0">
-                            <VBox styleClass="card">
-                                <Label styleClass="card-title" text="To-Do List" />
-                                <JFXListView fx:id="todoListView" prefHeight="200" />
-                                <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10 0 0 0;">
-                                    <JFXTextField fx:id="taskTextField" promptText="New task..." HBox.hgrow="ALWAYS" />
-                                    <JFXButton fx:id="addTaskButton" text="Add" onAction="#addTask" />
-                                </HBox>
-                            </VBox>
-                            <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                                <Label styleClass="card-title" text="Quick Notes" />
-                                <JFXTextArea fx:id="notesArea" prefHeight="200.0" promptText="Jot down some notes..." />
-                            </VBox>
-                        </VBox>
-                    </HBox>
-                </VBox>
-            </StackPane>
-        </HBox>
-    </VBox>
+                        <StackPane fx:id="contentArea" prefHeight="760.0" prefWidth="950.0">
+                            <children>
+                                <VBox fx:id="mainContent" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                    <children>
+                                        <Label fx:id="welcomeLabel" text="Good Morning, User!">
+                                            <font>
+                                                <Font name="System Bold" size="36.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="dateLabel" text="September 27, 2025" />
+                                        <HBox spacing="20.0">
+                                            <children>
+                                                <VBox HBox.hgrow="ALWAYS">
+                                                    <children>
+                                                        <HBox spacing="20.0">
+                                                            <children>
+                                                                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label styleClass="card-title" text="Weather" />
+                                                                        <Label fx:id="weatherLabel" text="Bristol, UK | 18°C, Sunny" />
+                                                                    </children>
+                                                                </VBox>
+                                                                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label styleClass="card-title" text="Tasks Completed" />
+                                                                        <Label fx:id="tasksLabel" styleClass="card-content-large" text="5 / 8" />
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </HBox>
+                                                        <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                                                            <children>
+                                                                <Label styleClass="card-title" text="Productivity Overview" />
+                                                                <AreaChart fx:id="productivityChart" legendVisible="false">
+                                                                    <xAxis>
+                                                                        <CategoryAxis side="BOTTOM" />
+                                                                    </xAxis>
+                                                                    <yAxis>
+                                                                        <NumberAxis side="LEFT" tickUnit="1" />
+                                                                    </yAxis>
+                                                                </AreaChart>
+                                                            </children>
+                                                            <padding>
+                                                                <Insets top="10.0" />
+                                                            </padding>
+                                                        </VBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox spacing="20.0">
+                                                    <children>
+                                                        <VBox styleClass="card">
+                                                            <children>
+                                                                <Label styleClass="card-title" text="To-Do List" />
+                                                                <JFXListView fx:id="todoListView" prefHeight="200.0" />
+                                                                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 0 0 0;">
+                                                                    <children>
+                                                                        <JFXTextField fx:id="taskTextField" promptText="New task..." HBox.hgrow="ALWAYS" />
+                                                                        <JFXButton fx:id="addTaskButton" onAction="#addTask" text="Add" />
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                        <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                                                            <children>
+                                                                <Label styleClass="card-title" text="Quick Notes" />
+                                                                <JFXTextArea fx:id="notesArea" prefHeight="200.0" promptText="Jot down some notes..." />
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </StackPane>
+                    </children>
+                </HBox>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>
