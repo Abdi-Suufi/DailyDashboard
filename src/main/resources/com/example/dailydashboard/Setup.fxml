@@ -8,20 +8,37 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 
 <StackPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.SetupController">
     <children>
-        <VBox fx:id="contentVBox" alignment="CENTER" opacity="0.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-            <padding>
-                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-            <children>
-                <Label styleClass="setup-title" text="Welcome to Daily Dashboard!" />
-                <Label styleClass="setup-subtitle" text="Let's get you set up. Please enter your name to continue." />
-                <JFXTextField fx:id="nameField" alignment="CENTER" prefWidth="250.0" styleClass="setup-textfield" />
-                <JFXButton onAction="#getStarted" styleClass="setup-button" text="Get Started" />
-            </children>
-        </VBox>
+        <BorderPane>
+            <top>
+                <HBox alignment="CENTER_RIGHT" styleClass="title-bar" prefHeight="40">
+                    <padding>
+                        <Insets left="10" right="10"/>
+                    </padding>
+                    <Label styleClass="title-label" text="Welcome to Daily Dashboard" HBox.hgrow="ALWAYS" alignment="CENTER" maxWidth="Infinity" />
+                    <Button fx:id="minimizeButton" onAction="#minimizeWindow" styleClass="window-button" text="-"/>
+                    <Button fx:id="maximizeButton" onAction="#maximizeWindow" styleClass="window-button" text="◻"/>
+                    <Button fx:id="closeButton" onAction="#closeWindow" styleClass="window-button" text="X"/>
+                </HBox>
+            </top>
+            <center>
+                <VBox fx:id="contentVBox" alignment="CENTER" opacity="0.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </padding>
+                    <children>
+                        <Label styleClass="setup-subtitle" text="Let's get you set up. Please enter your name to continue." />
+                        <JFXTextField fx:id="nameField" alignment="CENTER" prefWidth="250.0" styleClass="setup-textfield" />
+                        <JFXButton onAction="#getStarted" styleClass="setup-button" text="Get Started" />
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
         <ImageView fx:id="loadingGif" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@datadashboard.gif" />

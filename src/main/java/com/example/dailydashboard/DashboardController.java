@@ -19,6 +19,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -33,6 +34,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+import javafx.scene.control.Button;
+
 
 public class DashboardController implements Initializable {
 
@@ -46,6 +49,10 @@ public class DashboardController implements Initializable {
     @FXML private JFXTextArea notesArea;
     @FXML private VBox mainContent;
     @FXML private StackPane contentArea;
+
+    @FXML private Button minimizeButton;
+    @FXML private Button maximizeButton;
+    @FXML private Button closeButton;
 
     private Node homeView;
 
@@ -242,5 +249,23 @@ public class DashboardController implements Initializable {
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
         fadeIn.play();
+    }
+
+    @FXML
+    private void minimizeWindow(ActionEvent event) {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void maximizeWindow(ActionEvent event) {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage.setMaximized(!stage.isMaximized());
+    }
+
+    @FXML
+    private void closeWindow(ActionEvent event) {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

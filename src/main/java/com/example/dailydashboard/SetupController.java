@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -20,12 +22,21 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+import javafx.scene.control.Button;
+
 
 public class SetupController implements Initializable {
 
     @FXML private JFXTextField nameField;
     @FXML private ImageView loadingGif; // Changed from JFXSpinner to ImageView
     @FXML private VBox contentVBox;
+
+    @FXML private Button minimizeButton;
+    @FXML private Button maximizeButton;
+    @FXML private Button closeButton;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,8 +79,23 @@ public class SetupController implements Initializable {
             Parent dashboardRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard.fxml")));
             Stage dashboardStage = new Stage();
             dashboardStage.setTitle("Daily Dashboard");
+
+            dashboardStage.initStyle(StageStyle.TRANSPARENT);
+
             Scene scene = new Scene(dashboardRoot, 1200, 800);
+            scene.setFill(Color.TRANSPARENT);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
+
+            // Make the window draggable
+            dashboardRoot.setOnMousePressed(e -> {
+                xOffset = e.getSceneX();
+                yOffset = e.getSceneY();
+            });
+            dashboardRoot.setOnMouseDragged(e -> {
+                dashboardStage.setX(e.getScreenX() - xOffset);
+                dashboardStage.setY(e.getScreenY() - yOffset);
+            });
+
             dashboardStage.setScene(scene);
             dashboardStage.show();
 
@@ -80,5 +106,23 @@ public class SetupController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void minimizeWindow(ActionEvent event) {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void maximizeWindow(ActionEvent event) {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage.setMaximized(!stage.isMaximized());
+    }
+
+    @FXML
+    private void closeWindow(ActionEvent event) {
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

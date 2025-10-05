@@ -5,12 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class Main extends Application {
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -38,8 +43,26 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
         primaryStage.setTitle(title);
+
+        // Make the stage transparent
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+
         Scene scene = new Scene(root, width, height);
+        scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
+
+        // Make the window draggable by its root node
+        // Note: This makes the whole window draggable. If you want only the title bar to be draggable,
+        // you would set these event handlers on the title bar HBox in the respective controllers.
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
