@@ -1,5 +1,6 @@
 package com.example.dailydashboard;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -34,7 +36,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
-import javafx.scene.control.Button;
 
 
 public class DashboardController implements Initializable {
@@ -50,11 +51,19 @@ public class DashboardController implements Initializable {
     @FXML private VBox mainContent;
     @FXML private StackPane contentArea;
 
+    // Window control buttons
     @FXML private Button minimizeButton;
     @FXML private Button maximizeButton;
     @FXML private Button closeButton;
 
+    // Sidebar navigation buttons
+    @FXML private JFXButton homeButton;
+    @FXML private JFXButton analyticsButton;
+    @FXML private JFXButton tasksButton;
+    @FXML private JFXButton settingsButton;
+
     private Node homeView;
+    private JFXButton selectedButton; // To track the currently selected button
 
     private ObservableList<TodoItem> todoItems;
     private Map<String, Integer> productivityData = new HashMap<>();
@@ -63,6 +72,10 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         homeView = mainContent;
+
+        // Set initial selected button
+        selectedButton = homeButton;
+        selectedButton.getStyleClass().add("sidebar-button-selected");
 
         // Set Welcome and Date
         Preferences prefs = Preferences.userNodeForPackage(Main.class);
@@ -203,9 +216,17 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void handleNavClick(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        String id = source.getId();
+        // Remove style from the previously selected button
+        if (selectedButton != null) {
+            selectedButton.getStyleClass().remove("sidebar-button-selected");
+        }
 
+        // Update the selected button and apply the new style
+        JFXButton clickedButton = (JFXButton) event.getSource();
+        selectedButton = clickedButton;
+        selectedButton.getStyleClass().add("sidebar-button-selected");
+
+        String id = clickedButton.getId();
         switch (id) {
             case "homeButton":
                 updateTasksLabel(); // Update dashboard stats when returning home
@@ -254,19 +275,19 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void minimizeWindow(ActionEvent event) {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
     @FXML
     private void maximizeWindow(ActionEvent event) {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
     }
 
     @FXML
     private void closeWindow(ActionEvent event) {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
 }
