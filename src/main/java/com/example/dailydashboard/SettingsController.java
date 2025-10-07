@@ -39,19 +39,26 @@ public class SettingsController {
     @FXML
     private void saveWeatherLocation() {
         String location = weatherLocationField.getText();
-        if (location != null && !location.trim().isEmpty()) {
+        if (location == null || location.trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Invalid Input", "Weather location cannot be empty.");
+            return;
+        }
+
+        // Attempt to get weather data first
+        String weatherData = WeatherService.getWeatherData(location);
+
+        if (weatherData != null) {
+            // Success! Data was fetched. Now save and update UI.
             Preferences prefs = Preferences.userNodeForPackage(Main.class);
             prefs.put("weatherLocation", location);
-
-            // Update the weather display immediately
-            String weatherData = WeatherService.getWeatherData(location);
             weatherLabel.setText(WeatherService.parseWeatherData(weatherData, location));
-
             showAlert(Alert.AlertType.INFORMATION, "Success", "Weather location updated successfully.");
         } else {
-            showAlert(Alert.AlertType.WARNING, "Invalid Input", "Weather location cannot be empty.");
+            // Failure. Show an error message.
+            showAlert(Alert.AlertType.ERROR, "Error", "Could not find weather for '" + location + "'. Please check the location and try again.");
         }
     }
+
 
     @FXML
     private void clearAllData() {
