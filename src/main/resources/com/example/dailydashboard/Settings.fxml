@@ -25,6 +25,11 @@
             <JFXTextField fx:id="userNameField" promptText="Enter your name" />
             <JFXButton onAction="#saveUserName" text="Save" />
         </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label text="Weather Location:" />
+            <JFXTextField fx:id="weatherLocationField" prefWidth="200.0" promptText="e.g., London, UK" />
+            <JFXButton onAction="#saveWeatherLocation" text="Save" />
+        </HBox>
     </VBox>
     <VBox styleClass="card" spacing="15.0">
         <Label styleClass="card-title" text="Application Data" />

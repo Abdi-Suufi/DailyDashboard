@@ -71,8 +71,9 @@ public class DashboardController implements Initializable {
         dateLabel.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")));
 
         // Set weather data
-        String weatherData = WeatherService.getWeatherData();
-        weatherLabel.setText(WeatherService.parseWeatherData(weatherData));
+        String location = prefs.get("weatherLocation", "Bristol, UK");
+        String weatherData = WeatherService.getWeatherData(location);
+        weatherLabel.setText(WeatherService.parseWeatherData(weatherData, location));
 
         loadData();
         setupTodoListView();
@@ -234,7 +235,7 @@ public class DashboardController implements Initializable {
             } else if (controller instanceof TasksController) {
                 ((TasksController) controller).initData(todoItems);
             } else if (controller instanceof SettingsController) {
-                ((SettingsController) controller).initData(welcomeLabel);
+                ((SettingsController) controller).initData(welcomeLabel, weatherLabel);
             }
 
             setView(view);

@@ -11,12 +11,16 @@ import java.util.prefs.Preferences;
 public class SettingsController {
 
     @FXML private TextField userNameField;
+    @FXML private TextField weatherLocationField;
     private Label welcomeLabel;
+    private Label weatherLabel;
 
-    public void initData(Label welcomeLabel) {
+    public void initData(Label welcomeLabel, Label weatherLabel) {
         this.welcomeLabel = welcomeLabel;
+        this.weatherLabel = weatherLabel;
         Preferences prefs = Preferences.userNodeForPackage(Main.class);
         userNameField.setText(prefs.get("userName", "User"));
+        weatherLocationField.setText(prefs.get("weatherLocation", "Bristol, UK"));
     }
 
     @FXML
@@ -29,6 +33,23 @@ public class SettingsController {
             showAlert(Alert.AlertType.INFORMATION, "Success", "User name updated successfully.");
         } else {
             showAlert(Alert.AlertType.WARNING, "Invalid Input", "User name cannot be empty.");
+        }
+    }
+
+    @FXML
+    private void saveWeatherLocation() {
+        String location = weatherLocationField.getText();
+        if (location != null && !location.trim().isEmpty()) {
+            Preferences prefs = Preferences.userNodeForPackage(Main.class);
+            prefs.put("weatherLocation", location);
+
+            // Update the weather display immediately
+            String weatherData = WeatherService.getWeatherData(location);
+            weatherLabel.setText(WeatherService.parseWeatherData(weatherData, location));
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Weather location updated successfully.");
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Invalid Input", "Weather location cannot be empty.");
         }
     }
 
