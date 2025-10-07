@@ -33,12 +33,16 @@ public class Main extends Application {
             title = "Welcome!";
             width = 600;
             height = 400;
+            primaryStage.setMinWidth(600);
+            primaryStage.setMinHeight(400);
         } else {
             // Not the first run, show main dashboard
             fxmlFile = "Dashboard.fxml";
             title = "Daily Dashboard";
             width = 1200;
             height = 800;
+            primaryStage.setMinWidth(1000);
+            primaryStage.setMinHeight(700);
         }
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
@@ -52,8 +56,6 @@ public class Main extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
 
         // Make the window draggable by its root node
-        // Note: This makes the whole window draggable. If you want only the title bar to be draggable,
-        // you would set these event handlers on the title bar HBox in the respective controllers.
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();

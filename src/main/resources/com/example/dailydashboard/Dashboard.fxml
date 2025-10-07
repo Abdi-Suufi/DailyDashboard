@@ -19,7 +19,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dailydashboard.DashboardController">
     <children>
-        <BorderPane layoutX="269.0" layoutY="254.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
                 <HBox alignment="CENTER_RIGHT" prefHeight="40.0" styleClass="title-bar" BorderPane.alignment="CENTER">
                     <children>
@@ -36,7 +36,7 @@
             <center>
                 <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="760.0" prefWidth="250.0" spacing="20.0" styleClass="sidebar">
+                        <VBox alignment="TOP_CENTER" prefWidth="250.0" spacing="20.0" styleClass="sidebar">
                             <children>
                                 <Label styleClass="sidebar-title" text="Dashboard">
                                     <font>
@@ -52,9 +52,9 @@
                                 <Insets top="20.0" />
                             </padding>
                         </VBox>
-                        <StackPane fx:id="contentArea" prefHeight="760.0" prefWidth="950.0">
+                        <StackPane fx:id="contentArea" HBox.hgrow="ALWAYS">
                             <children>
-                                <VBox fx:id="mainContent" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                                <VBox fx:id="mainContent" spacing="20.0">
                                     <children>
                                         <Label fx:id="welcomeLabel" text="Good Morning, User!">
                                             <font>
@@ -62,7 +62,7 @@
                                             </font>
                                         </Label>
                                         <Label fx:id="dateLabel" text="September 27, 2025" />
-                                        <HBox spacing="20.0">
+                                        <HBox spacing="20.0" VBox.vgrow="ALWAYS">
                                             <children>
                                                 <VBox HBox.hgrow="ALWAYS">
                                                     <children>
@@ -85,7 +85,7 @@
                                                         <VBox styleClass="card" VBox.vgrow="ALWAYS">
                                                             <children>
                                                                 <Label styleClass="card-title" text="Productivity Overview" />
-                                                                <AreaChart fx:id="productivityChart" legendVisible="false">
+                                                                <AreaChart fx:id="productivityChart" legendVisible="false" VBox.vgrow="ALWAYS">
                                                                     <xAxis>
                                                                         <CategoryAxis side="BOTTOM" />
                                                                     </xAxis>
@@ -94,18 +94,18 @@
                                                                     </yAxis>
                                                                 </AreaChart>
                                                             </children>
-                                                            <padding>
-                                                                <Insets top="10.0" />
-                                                            </padding>
+                                                            <VBox.margin>
+                                                                <Insets top="20.0" />
+                                                            </VBox.margin>
                                                         </VBox>
                                                     </children>
                                                 </VBox>
-                                                <VBox spacing="20.0">
+                                                <VBox prefWidth="350.0" spacing="20.0">
                                                     <children>
-                                                        <VBox styleClass="card">
+                                                        <VBox styleClass="card" VBox.vgrow="ALWAYS">
                                                             <children>
                                                                 <Label styleClass="card-title" text="To-Do List" />
-                                                                <JFXListView fx:id="todoListView" prefHeight="200.0" />
+                                                                <JFXListView fx:id="todoListView" VBox.vgrow="ALWAYS" />
                                                                 <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 0 0 0;">
                                                                     <children>
                                                                         <JFXTextField fx:id="taskTextField" promptText="New task..." HBox.hgrow="ALWAYS" />
@@ -117,7 +117,7 @@
                                                         <VBox styleClass="card" VBox.vgrow="ALWAYS">
                                                             <children>
                                                                 <Label styleClass="card-title" text="Quick Notes" />
-                                                                <JFXTextArea fx:id="notesArea" prefHeight="200.0" promptText="Jot down some notes..." />
+                                                                <JFXTextArea fx:id="notesArea" promptText="Jot down some notes..." VBox.vgrow="ALWAYS" />
                                                             </children>
                                                         </VBox>
                                                     </children>
