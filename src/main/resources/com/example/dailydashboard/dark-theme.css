@@ -59,12 +59,13 @@
     -fx-text-fill: #3498db;
 }
 
+/* Updated rule for text fields and text areas */
 .jfx-text-field, .jfx-text-area {
-    -fx-text-fill: #ecf0f1;
+    -fx-text-fill: #ecf0f1; /* This sets the color of the text you type */
     -fx-background-color: #34495e;
     -jfx-focus-color: #3498db;
     -jfx-unfocus-color: #95a5a6;
-    -fx-prompt-text-fill: #95a5a6;
+    -fx-prompt-text-fill: #95a5a6; /* This sets the color of the placeholder text */
 }
 
 .chart-plot-background {
@@ -81,6 +82,15 @@
 
 .axis {
     -fx-tick-label-fill: #ecf0f1;
+}
+
+.jfx-button {
+    -fx-text-fill: #ecf0f1;
+    -fx-background-color: #3498db;
+}
+
+.jfx-button:hover {
+    -fx-background-color: #5dade2;
 }
 
 .label {
