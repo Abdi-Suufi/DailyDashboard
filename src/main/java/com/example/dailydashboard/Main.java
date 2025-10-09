@@ -55,6 +55,11 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
 
+        // Apply dark theme if it's enabled
+        if (prefs.getBoolean("darkMode", false)) {
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("dark-theme.css")).toExternalForm());
+        }
+
         // Make the window draggable by its root node
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

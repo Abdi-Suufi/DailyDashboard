@@ -1,0 +1,88 @@
+.root {
+    -fx-font-family: 'Inter', 'Segoe UI', sans-serif;
+    -fx-background-color: linear-gradient(to bottom right, #2c3e50, #4ca1af);
+    -fx-background-radius: 15;
+}
+
+.title-bar {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.title-label {
+    -fx-text-fill: #ecf0f1;
+}
+
+.window-button {
+    -fx-text-fill: #ecf0f1;
+}
+
+.window-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-title {
+    -fx-text-fill: #ecf0f1;
+}
+
+.sidebar-button {
+    -fx-text-fill: #ecf0f1;
+    -fx-border-color: #3498db;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.sidebar-button-selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+#welcomeLabel, #dateLabel {
+    -fx-text-fill: #ecf0f1;
+}
+
+.card {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+}
+
+.card-title {
+    -fx-text-fill: #ecf0f1;
+}
+
+.card-content-large {
+    -fx-text-fill: #3498db;
+}
+
+.jfx-text-field, .jfx-text-area {
+    -fx-text-fill: #ecf0f1;
+    -fx-background-color: #34495e;
+    -jfx-focus-color: #3498db;
+    -jfx-unfocus-color: #95a5a6;
+    -fx-prompt-text-fill: #95a5a6;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.default-color0.chart-series-area-fill {
+    -fx-fill: linear-gradient(to top, #3498db33, #3498db);
+}
+
+.default-color0.chart-series-area-line {
+    -fx-stroke: #3498db;
+}
+
+.axis {
+    -fx-tick-label-fill: #ecf0f1;
+}
+
+.label {
+    -fx-text-fill: #ecf0f1;
+}

@@ -1,17 +1,22 @@
 package com.example.dailydashboard;
 
+import com.jfoenix.controls.JFXToggleButton;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class SettingsController {
 
     @FXML private TextField userNameField;
     @FXML private TextField weatherLocationField;
+    @FXML private JFXToggleButton darkModeToggle;
     private Label welcomeLabel;
     private Label weatherLabel;
 
@@ -21,7 +26,26 @@ public class SettingsController {
         Preferences prefs = Preferences.userNodeForPackage(Main.class);
         userNameField.setText(prefs.get("userName", "User"));
         weatherLocationField.setText(prefs.get("weatherLocation", "Bristol, UK"));
+        darkModeToggle.setSelected(prefs.getBoolean("darkMode", false));
     }
+
+    @FXML
+    private void toggleTheme(ActionEvent event) {
+        Preferences prefs = Preferences.userNodeForPackage(Main.class);
+        boolean isSelected = darkModeToggle.isSelected();
+        prefs.putBoolean("darkMode", isSelected);
+
+        Scene scene = darkModeToggle.getScene();
+        if (scene != null) {
+            String darkTheme = Objects.requireNonNull(getClass().getResource("dark-theme.css")).toExternalForm();
+            if (isSelected) {
+                scene.getStylesheets().add(darkTheme);
+            } else {
+                scene.getStylesheets().remove(darkTheme);
+            }
+        }
+    }
+
 
     @FXML
     private void saveUserName() {
